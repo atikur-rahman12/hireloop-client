@@ -44,7 +44,7 @@ const Navbar = () => {
 
           <div className="flex flex-col leading-none">
             <span className="text-lg font-bold tracking-wide text-white">
-              HireLoop
+              Hire Loop
             </span>
 
             <span className="text-xs text-gray-400">Hiring Platform</span>
@@ -72,14 +72,12 @@ const Navbar = () => {
             Sign In
           </Link>
 
-          <Button
-            as={Link}
-            href="/register"
-            radius="lg"
-            className="bg-white px-5 font-semibold text-black hover:bg-gray-200"
+          <Link
+            href="/login"
+            className="bg-white px-4 py-2 rounded-lg font-semibold text-black hover:bg-gray-200"
           >
             Get Started
-          </Button>
+          </Link>
         </div>
 
         {/* Mobile Menu Button */}
