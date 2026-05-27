@@ -37,7 +37,7 @@ const Footer = () => {
           {/* Left Side */}
           <div className="lg:col-span-4">
             <Link href="/" className="inline-flex items-center gap-3">
-              <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-violet-500 to-indigo-600 flex items-center justify-center shadow-lg shrink-0">
+              <div className="w-11 h-11 rounded-xl bg-linear-to-br from-violet-500 to-indigo-600 flex items-center justify-center shadow-lg shrink-0">
                 <span className="text-white font-bold text-lg">H</span>
               </div>
 
