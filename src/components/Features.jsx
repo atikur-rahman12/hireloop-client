@@ -4,7 +4,7 @@ import {
   ChartSpline,
   Building2,
   Bookmark,
-  Sparkles,
+  MousePointerClick ,
   FileText,
   Hexagon,
   TrendingUp,
@@ -32,7 +32,7 @@ const features = [
     description: "Manage apps & favorites on your dashboard.",
   },
   {
-    icon: Sparkles,
+    icon: MousePointerClick,
     title: "One-Click Apply",
     description: "Simplify your job applications for an easier process!",
   },
@@ -61,11 +61,11 @@ const Features = () => {
         <div className="flex items-center justify-center gap-3 mb-6">
           <div className="w-3 h-3 bg-violet-500 rounded-sm"></div>
 
-          <span className="uppercase tracking-[0.25em] text-sm text-gray-400 font-medium">
+          <span className="uppercase tracking-[0.25em] text-lg text-gray-400 font-medium">
             Features
           </span>
 
-          <span className="uppercase tracking-[0.25em] text-sm text-gray-400 font-medium">
+          <span className="uppercase tracking-[0.25em] text-lg text-gray-400 font-medium">
             Job
           </span>
 
@@ -89,10 +89,10 @@ const Features = () => {
             return (
               <div key={index} className="flex items-start gap-5 group">
                 {/* Icon Box */}
-                <div className="w-21.25 h-20 rounded-2xl bg-linear-to-t from-[#313131] to-[#010102] flex items-center justify-center shadow-[0_0_20px_rgba(139,92,246,0.08)] transition-all duration-300 border group-hover:border-violet-500">
+                <div className="w-21.25 h-20 rounded-2xl bg-linear-to-t from-[#313131]/50 to-[#010102] flex items-center justify-center shadow-[0_0_20px_rgba(139,92,246,0.08)] transition-all duration-300 border border-[#010102] group-hover:border-violet-500">
                   <Icon
                     size={26}
-                    className="text-violet-300"
+                    className="text-violet-400"
                     strokeWidth={1.8}
                   />
                 </div>

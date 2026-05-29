@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { Button } from "@heroui/react";
 
 import {
   Bars,
@@ -73,7 +72,7 @@ const Navbar = () => {
           </Link>
 
           <Link
-            href="/login"
+            href="/register"
             className="bg-white px-4 py-2 rounded-lg font-semibold text-black hover:bg-gray-200"
           >
             Get Started
@@ -120,15 +119,12 @@ const Navbar = () => {
               Sign In
             </Link>
 
-            <Button
-              as={Link}
+            <Link
               href="/register"
-              fullWidth
-              radius="lg"
-              className="mt-2 bg-white font-semibold text-black hover:bg-gray-200"
+              className="w-full block text-center bg-white px-4 py-2 rounded-full font-semibold text-black hover:bg-gray-200"
             >
               Get Started
-            </Button>
+            </Link>
           </div>
         </div>
       )}
