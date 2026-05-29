@@ -65,14 +65,14 @@ const Navbar = () => {
           <div className="mx-2 h-6 w-px bg-white/10" />
 
           <Link
-            href="/login"
+            href="/signin"
             className="px-3 text-sm font-semibold text-violet-400 transition hover:text-violet-300"
           >
             Sign In
           </Link>
 
           <Link
-            href="/register"
+            href="/signup"
             className="bg-white px-4 py-2 rounded-lg font-semibold text-black hover:bg-gray-200"
           >
             Get Started
@@ -111,7 +111,7 @@ const Navbar = () => {
             <div className="my-3 border-t border-white/10" />
 
             <Link
-              href="/login"
+              href="/signin"
               className="flex items-center gap-2 rounded-xl px-4 py-3 text-sm font-semibold text-violet-400 transition hover:bg-white/5"
               onClick={() => setIsMenuOpen(false)}
             >
@@ -120,7 +120,7 @@ const Navbar = () => {
             </Link>
 
             <Link
-              href="/register"
+              href="/signup"
               className="w-full block text-center bg-white px-4 py-2 rounded-full font-semibold text-black hover:bg-gray-200"
             >
               Get Started

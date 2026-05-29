@@ -53,7 +53,7 @@ const Footer = () => {
           </div>
 
           {/* Right Side Links */}
-          <div className="lg:col-span-8">
+          <div className="lg:col-span-8 lg:ml-52">
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10">
               {/* Product */}
               <div>
