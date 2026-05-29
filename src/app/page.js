@@ -1,4 +1,5 @@
 import Features from "@/components/Features";
+import NextRole from "@/components/NextRole";
 import PricingCard from "@/components/PricingCard";
 import StatsSection from "@/components/StatsSection";
 
@@ -9,6 +10,7 @@ export default function Home() {
 
       <Features />
       <PricingCard />
+      <NextRole />
     </div>
   );
 }

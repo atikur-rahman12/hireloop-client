@@ -89,7 +89,7 @@ const PricingCard = () => {
             return (
               <div
                 key={index}
-                className={`group relative rounded-[30px] border border-white/20 p-8 flex flex-col justify-between min-h-[520px]
+                className={`group relative rounded-[30px] border border-white/20 p-8 flex flex-col justify-between min-h-130
                 transition-all duration-500 hover:-translate-y-3
                 ${
                   plan.popular
