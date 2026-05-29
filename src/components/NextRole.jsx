@@ -16,7 +16,7 @@ const NextRole = () => {
             backgroundImage: "url('/images/cta-bg.png')",
           }}
         >
-          <div className="absolute inset-0 bg-gradient-to-b from-indigo-500/20 via-transparent to-black/80" />
+          <div className="absolute inset-0 bg-linear-to-b from-indigo-500/20 via-transparent to-black/80" />
         </div>
       </div>
 
@@ -43,7 +43,7 @@ const NextRole = () => {
             className="group relative overflow-hidden btn border-0 bg-white text-black rounded-2xl px-8 min-h-14 h-14 text-base font-medium shadow-lg transition-all duration-300 ease-out hover:shadow-white/20 hover:shadow-2xl hover:-translate-y-1 active:scale-95"
           >
             {/* shimmer */}
-            <span className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/40 to-transparent group-hover:translate-x-full transition-transform duration-700" />
+            <span className="absolute inset-0 -translate-x-full bg-linear-to-r from-transparent via-white/40 to-transparent group-hover:translate-x-full transition-transform duration-700" />
             <span className="relative z-10">Create a free account</span>
           </Link>
 
