@@ -114,7 +114,7 @@ const StatsSection = () => {
                 </div>
 
                 {/* Search Button */}
-                <button className="h-17 md:h-full px-7 bg-indigo-600 hover:bg-indigo-500 transition-all duration-300 flex items-center justify-center">
+                <button className="h-15 md:h-full px-5 py-3 mr-2 rounded-lg bg-indigo-600 hover:bg-indigo-500 transition-all duration-300 flex items-center justify-center">
                   <Magnifier className="w-6 h-6 text-white" />
                 </button>
               </div>

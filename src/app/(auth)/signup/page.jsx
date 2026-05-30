@@ -146,7 +146,7 @@ export default function SignupPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center px-4 bg-gradient-to-br from-[#0f172a] via-[#111827] to-[#0b1220]">
+    <div className="min-h-screen flex items-center justify-center px-4 bg-linear-to-br from-[#0f172a] via-[#111827] to-[#0b1220]">
       <div className="w-full max-w-md">
         <div className="rounded-2xl border border-white/10 bg-white/5 backdrop-blur-xl p-6">
           {/* TITLE */}
@@ -219,9 +219,9 @@ export default function SignupPage() {
             {/* BUTTON */}
             <button
               type="submit"
-              className="relative w-full py-3 rounded-xl font-semibold text-white bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 transition-all duration-300 hover:scale-[1.03] hover:shadow-[0_0_25px_rgba(99,102,241,0.6)] active:scale-95 overflow-hidden group"
+              className="relative w-full py-3 rounded-xl font-semibold text-white bg-linear-to-r from-blue-600 via-purple-600 to-pink-600 transition-all duration-300 hover:scale-[1.03] hover:shadow-[0_0_25px_rgba(99,102,241,0.6)] active:scale-95 overflow-hidden group"
             >
-              <span className="absolute inset-0 bg-white/20 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700"></span>
+              <span className="absolute inset-0 bg-white/20 -translate-x-full group-hover:translate-x-full transition-transform duration-700"></span>
 
               <span className="relative z-10">Create Account</span>
             </button>
@@ -271,7 +271,7 @@ export default function SignupPage() {
               Already have an account?{" "}
               <Link
                 href="/signin"
-                className="relative text-blue-400 font-medium transition-all duration-300 hover:text-white hover:drop-shadow-[0_0_10px_rgba(59,130,246,0.8)] after:content-[''] after:absolute after:left-0 after:-bottom-0.5 after:w-0 after:h-[2px] after:bg-blue-400 after:transition-all after:duration-300 hover:after:w-full"
+                className="relative text-blue-400 font-medium transition-all duration-300 hover:text-white hover:drop-shadow-[0_0_10px_rgba(59,130,246,0.8)] after:content-[''] after:absolute after:left-0 after:-bottom-0.5 after:w-0 after:h-0.5 after:bg-blue-400 after:transition-all after:duration-300 hover:after:w-full"
               >
                 Sign In
               </Link>
