@@ -29,7 +29,7 @@ export default function Navbar() {
             {/* MENU BUTTON */}
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="relative z-80 rounded-xl bg-[#0B0B0F] p-2 text-white shadow-lg"
+              className="relative z-80 rounded-xl bg-[#0B0B0F] p-2 text-white shadow-lg cursor-pointer"
             >
               <AnimatePresence mode="wait" initial={false}>
                 {isMenuOpen ? (
@@ -200,6 +200,7 @@ export default function Navbar() {
                     <Link
                       href="/signup"
                       className="group relative flex w-full items-center justify-center gap-2 overflow-hidden rounded-lg bg-white px-4 py-3 text-sm font-semibold text-black transition duration-300 hover:-translate-y-0.5 hover:shadow-lg active:scale-95"
+                      onClick={() => setIsMenuOpen(false)}
                     >
                       {/* hover background */}
                       <span className="absolute inset-0 bg-black/5 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />

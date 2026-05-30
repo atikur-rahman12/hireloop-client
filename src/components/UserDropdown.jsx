@@ -32,23 +32,25 @@ const UserDropdown = ({ user }) => {
       .toUpperCase() || "U";
 
   return (
-    <div ref={dropdownRef} className="relative flex items-center gap-2">
+    <div ref={dropdownRef} className="relative flex items-center gap-3">
       {/* LEFT ICON (ONLY IF USER EXISTS) */}
       {user && (
-        <button className="rounded-xl bg-white/5 p-2 text-white hover:bg-white/20">
+        <button className="rounded-xl p-2 text-white cursor-pointer">
           <Bell className="h-5 w-5" />
         </button>
       )}
 
-      {/* RIGHT SIDE: USER OR GET STARTED */}
       {user ? (
-        <button onClick={() => setIsOpen((prev) => !prev)}>
+        <button
+          onClick={() => setIsOpen((prev) => !prev)}
+          className="cursor-pointer"
+        >
           {user.image ? (
             <Image
               src={user.image}
               alt={user.name || "User"}
-              width={40}
-              height={40}
+              width={100}
+              height={100}
               className="h-10 w-10 rounded-full object-cover"
             />
           ) : (
@@ -90,8 +92,8 @@ const UserDropdown = ({ user }) => {
                 <Image
                   src={user.image}
                   alt={user.name || "User"}
-                  width={64}
-                  height={64}
+                  width={150}
+                  height={150}
                   className="h-16 w-16 rounded-full object-cover border border-white/10"
                 />
               ) : (
@@ -120,7 +122,7 @@ const UserDropdown = ({ user }) => {
                   signOut();
                   setIsOpen(false);
                 }}
-                className="group relative flex w-full items-center justify-center gap-2 overflow-hidden rounded-xl bg-red-500 px-4 py-2 text-sm font-semibold text-white transition-all duration-300 hover:scale-[1.05] hover:-translate-y-0.5 hover:bg-red-600 hover:shadow-[0_10px_30px_rgba(239,68,68,0.35)]"
+                className="group relative cursor-pointer flex w-full items-center justify-center gap-2 overflow-hidden rounded-xl bg-red-500 px-4 py-2 text-sm font-semibold text-white transition-all duration-300 hover:scale-[1.05] hover:-translate-y-0.5 hover:bg-red-600 hover:shadow-[0_10px_30px_rgba(239,68,68,0.35)]"
               >
                 <LogOut className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
                 <span className="relative z-10">Logout</span>
