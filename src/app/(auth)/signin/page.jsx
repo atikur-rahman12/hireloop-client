@@ -5,6 +5,7 @@ import Link from "next/link";
 import { Mail, Lock, Eye, EyeOff } from "lucide-react";
 import toast from "react-hot-toast";
 import { signIn } from "@/lib/auth-client";
+import Image from "next/image";
 
 const SignInPage = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -45,7 +46,7 @@ const SignInPage = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#0f172a] via-[#111827] to-[#0b1220] px-4">
+    <div className="min-h-screen flex items-center justify-center bg-linear-to-br from-[#0f172a] via-[#111827] to-[#0b1220] px-4">
       <div className="w-full max-w-md">
         <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-6 shadow-2xl">
           <h1 className="text-3xl font-bold text-center text-white">
@@ -108,14 +109,6 @@ const SignInPage = () => {
             </div>
 
             {/* BUTTON */}
-            {/* <button
-              type="submit"
-              disabled={loading}
-              className="w-full py-3 rounded-xl font-semibold text-white bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 transition-all duration-300 hover:scale-[1.03] active:scale-95 disabled:opacity-50"
-            >
-              {loading ? "Signing in..." : "Sign In"}
-            </button> */}
-
             <button
               type="submit"
               disabled={loading}
@@ -127,6 +120,50 @@ const SignInPage = () => {
                 {loading ? "Signing in..." : "Sign In"}
               </span>
             </button>
+
+            {/* OR */}
+            <div className="flex items-center my-5">
+              <div className="flex-1 h-px bg-white/10"></div>
+
+              <span className="px-3 text-xs text-gray-400 uppercase tracking-wider">
+                OR
+              </span>
+
+              <div className="flex-1 h-px bg-white/10"></div>
+            </div>
+
+            {/* SOCIAL BUTTONS */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              {/* GOOGLE */}
+              <button
+                type="button"
+                className="w-full flex items-center justify-center gap-3 py-3 rounded-xl border border-white/10 bg-white/5 text-white font-medium transition-all duration-300 hover:bg-white/10 hover:scale-[1.02] active:scale-95"
+              >
+                <Image
+                  src={"https://www.svgrepo.com/show/475656/google-color.svg"}
+                  alt="google"
+                  className="w-5 h-5"
+                  width={45}
+                  height={45}
+                />
+                Google
+              </button>
+
+              {/* GITHUB */}
+              <button
+                type="button"
+                className="w-full flex items-center justify-center gap-3 py-3 rounded-xl border border-white/10 bg-white/5 text-white font-medium transition-all duration-300 hover:bg-white/10 hover:scale-[1.02] active:scale-95"
+              >
+                <Image
+                  src={"https://www.svgrepo.com/show/512317/github-142.svg"}
+                  alt="github"
+                  className="w-5 h-5 invert"
+                  width={45}
+                  height={45}
+                />
+                GitHub
+              </button>
+            </div>
 
             <p className="text-center text-sm text-gray-400 mt-4">
               Don’t have an account?{" "}

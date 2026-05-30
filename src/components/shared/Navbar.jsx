@@ -2,98 +2,108 @@
 
 import { useState } from "react";
 import Link from "next/link";
-
-import {
-  Bars,
-  Xmark,
-  Briefcase,
-  ArrowRightFromSquare,
-} from "@gravity-ui/icons";
+import { Bars, Xmark, Briefcase } from "@gravity-ui/icons";
+import { useSession } from "@/lib/auth-client";
+import UserDropdown from "../UserDropdown";
 
 const navLinks = [
-  {
-    name: "Browse Jobs",
-    href: "/jobs",
-  },
-  {
-    name: "Companies",
-    href: "/companies",
-  },
-  {
-    name: "Pricing",
-    href: "/pricing",
-  },
-  {
-    name: "Dashboard",
-    href: "/dashboard",
-  },
+  { name: "Browse Jobs", href: "/jobs" },
+  { name: "Companies", href: "/companies" },
+  { name: "Pricing", href: "/pricing" },
+  { name: "Dashboard", href: "/dashboard" },
 ];
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
+  const { data: session } = useSession();
+  const user = session?.user;
+
   return (
     <nav className="sticky top-0 z-50 border-b border-white/10 bg-[#0B0B0F]/80 backdrop-blur-xl">
       <div className="mx-auto flex h-20 max-w-350 items-center justify-between px-3 sm:px-4 lg:px-5">
-        {/* Logo */}
-        <Link href="/" className="flex items-center gap-3">
-          <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-linear-to-br from-violet-600 to-fuchsia-500 shadow-lg">
-            <Briefcase className="h-5 w-5 text-white" />
+        {/* MOBILE */}
+        <div className="flex w-full items-center justify-between lg:hidden">
+          {/* LEFT SIDE */}
+          <div className="flex items-center gap-2">
+            <button
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              className="rounded-xl bg-white/5 p-2 text-white"
+            >
+              {isMenuOpen ? (
+                <Xmark className="h-6 w-6" />
+              ) : (
+                <Bars className="h-6 w-6" />
+              )}
+            </button>
+
+            <Link href="/" className="flex items-center gap-3">
+              <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-linear-to-br from-violet-600 to-fuchsia-500">
+                <Briefcase className="h-5 w-5 text-white" />
+              </div>
+
+              <div className="flex flex-col leading-none">
+                <span className="text-lg font-bold text-white">Hire Loop</span>
+                <span className="text-xs text-gray-400">Hiring Platform</span>
+              </div>
+            </Link>
           </div>
 
-          <div className="flex flex-col leading-none">
-            <span className="text-lg font-bold tracking-wide text-white">
-              Hire Loop
-            </span>
+          {/* RIGHT SIDE */}
+          <UserDropdown user={user} />
+        </div>
 
+        {/* DESKTOP LOGO */}
+        <Link href="/" className="hidden lg:flex items-center gap-3">
+          <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-linear-to-br from-violet-600 to-fuchsia-500">
+            <Briefcase className="h-5 w-5 text-white" />
+          </div>
+          <div className="flex flex-col leading-none">
+            <span className="text-lg font-bold text-white">Hire Loop</span>
             <span className="text-xs text-gray-400">Hiring Platform</span>
           </div>
         </Link>
 
-        {/* Desktop Menu */}
-        <div className="hidden items-center gap-3 rounded-2xl border border-white/10 bg-white/5 px-3 py-2 backdrop-blur-lg lg:flex">
+        {/* DESKTOP NAV (ONLY PADDED CHANGE HERE) */}
+        <div className="hidden items-center gap-3 rounded-2xl border border-white/10 bg-white/5 px-3 lg:flex">
           {navLinks.map((link) => (
             <Link
               key={link.name}
               href={link.href}
-              className="rounded-xl px-4 py-2 text-sm font-medium text-gray-300 transition-all duration-200 hover:bg-white/10 hover:text-violet-400"
+              className="relative px-4 py-4 text-sm text-gray-300 transition-all duration-300 ease-out hover:text-white hover:-translate-y-px group"
             >
               {link.name}
+
+              <span className="absolute left-1/2 bottom-2 h-0.5 w-0 -translate-x-1/2 bg-linear-to-r from-violet-500 to-fuchsia-500 transition-all duration-300 group-hover:w-3/4 rounded-full shadow-[0_0_10px_rgba(139,92,246,0.6)]" />
             </Link>
           ))}
 
           <div className="mx-2 h-6 w-px bg-white/10" />
 
-          <Link
-            href="/signin"
-            className="px-3 text-sm font-semibold text-violet-400 transition hover:text-violet-300"
-          >
-            Sign In
-          </Link>
-
-          <Link
-            href="/signup"
-            className="bg-white px-4 py-2 rounded-lg font-semibold text-black hover:bg-gray-200"
-          >
-            Get Started
-          </Link>
-        </div>
-
-        {/* Mobile Menu Button */}
-        <button
-          onClick={() => setIsMenuOpen(!isMenuOpen)}
-          className="flex items-center justify-center rounded-xl border border-white/10 bg-white/5 p-2 text-white transition hover:bg-white/10 lg:hidden"
-          aria-label="Toggle Menu"
-        >
-          {isMenuOpen ? (
-            <Xmark className="h-6 w-6" />
+          {user ? (
+            <UserDropdown user={user} />
           ) : (
-            <Bars className="h-6 w-6" />
+            <>
+              {/* SIGN IN (PREMIUM HOVER) */}
+              <Link
+                href="/signin"
+                className="text-sm text-violet-400 px-3 py-2 rounded-xl transition-all duration-200 hover:bg-white/10 hover:text-violet-300 hover:scale-[1.05]"
+              >
+                Sign In
+              </Link>
+
+              <Link
+                href="/signup"
+                className="rounded-lg bg-white px-4 py-2 text-sm font-semibold text-black transition-all duration-200 hover:scale-[1.05] hover:shadow-lg"
+              >
+                Get Started
+              </Link>
+            </>
           )}
-        </button>
+        </div>
       </div>
 
-      {/* Mobile Menu */}
+      {/* MOBILE MENU (UPDATED PREMIUM HOVER ONLY) */}
       {isMenuOpen && (
         <div className="border-t border-white/10 bg-[#0B0B0F] lg:hidden">
           <div className="space-y-2 px-4 py-5">
@@ -101,30 +111,57 @@ const Navbar = () => {
               <Link
                 key={link.name}
                 href={link.href}
-                className="block rounded-xl px-4 py-3 text-sm font-medium text-gray-300 transition hover:bg-white/5 hover:text-violet-400"
                 onClick={() => setIsMenuOpen(false)}
+                className="
+            block rounded-xl px-4 py-3 text-sm text-gray-300
+            transition-all duration-200
+            hover:bg-white/10
+            hover:text-violet-400
+            hover:scale-[1.02]
+            hover:shadow-[0_0_20px_rgba(139,92,246,0.25)]
+            active:scale-[0.98]
+          "
               >
                 {link.name}
               </Link>
             ))}
 
-            <div className="my-3 border-t border-white/10" />
+            {/* AUTH SECTION */}
+            {!user && (
+              <>
+                <div className="my-3 border-t border-white/10" />
 
-            <Link
-              href="/signin"
-              className="flex items-center gap-2 rounded-xl px-4 py-3 text-sm font-semibold text-violet-400 transition hover:bg-white/5"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              <ArrowRightFromSquare className="h-4 w-4" />
-              Sign In
-            </Link>
+                <Link
+                  href="/signin"
+                  onClick={() => setIsMenuOpen(false)}
+                  className="
+              block rounded-xl px-4 py-3 text-violet-400
+              transition-all duration-200
+              hover:bg-white/10
+              hover:text-violet-300
+              hover:scale-[1.02]
+              hover:shadow-[0_0_20px_rgba(139,92,246,0.25)]
+              active:scale-[0.98]
+            "
+                >
+                  Sign In
+                </Link>
 
-            <Link
-              href="/signup"
-              className="w-full block text-center bg-white px-4 py-2 rounded-full font-semibold text-black hover:bg-gray-200"
-            >
-              Get Started
-            </Link>
+                <Link
+                  href="/signup"
+                  onClick={() => setIsMenuOpen(false)}
+                  className="
+              block rounded-xl bg-white px-4 py-3 text-center font-semibold text-black
+              transition-all duration-200
+              hover:scale-[1.02]
+              hover:shadow-lg
+              active:scale-[0.98]
+            "
+                >
+                  Get Started
+                </Link>
+              </>
+            )}
           </div>
         </div>
       )}

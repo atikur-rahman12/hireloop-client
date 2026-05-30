@@ -6,6 +6,7 @@ import { User, Mail, Image as ImageIcon, Lock } from "lucide-react";
 import { signUp } from "@/lib/auth-client";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 const InputField = ({
   icon: Icon,
@@ -98,8 +99,8 @@ export default function SignupPage() {
       newErrors.confirmPassword = "Confirm password is required";
     }
 
-    if (registerData.password && registerData.password.length < 6) {
-      newErrors.password = "Password must be at least 6 characters";
+    if (registerData.password && registerData.password.length < 8) {
+      newErrors.password = "Password must be at least 8 characters";
     }
 
     if (
@@ -115,6 +116,8 @@ export default function SignupPage() {
 
       if (newErrors.confirmPassword === "Passwords do not match") {
         toast.error("Confirm password does not match");
+      } else if (registerData.password && registerData.password.length < 8) {
+        toast.error("Password must be at least 8 characters");
       } else {
         toast.error("Required fields cannot be empty");
       }
@@ -219,7 +222,7 @@ export default function SignupPage() {
             {/* BUTTON */}
             <button
               type="submit"
-              className="relative w-full py-3 rounded-xl font-semibold text-white bg-linear-to-r from-blue-600 via-purple-600 to-pink-600 transition-all duration-300 hover:scale-[1.03] hover:shadow-[0_0_25px_rgba(99,102,241,0.6)] active:scale-95 overflow-hidden group"
+              className="relative w-full py-3 mt-2 rounded-xl font-semibold text-white bg-linear-to-r from-blue-600 via-purple-600 to-pink-600 transition-all duration-300 hover:scale-[1.03] hover:shadow-[0_0_25px_rgba(99,102,241,0.6)] active:scale-95 overflow-hidden group"
             >
               <span className="absolute inset-0 bg-white/20 -translate-x-full group-hover:translate-x-full transition-transform duration-700"></span>
 
@@ -244,10 +247,12 @@ export default function SignupPage() {
                 type="button"
                 className="w-full flex items-center justify-center gap-3 py-3 rounded-xl border border-white/10 bg-white/5 text-white font-medium transition-all duration-300 hover:bg-white/10 hover:scale-[1.02] active:scale-95"
               >
-                <img
-                  src="https://www.svgrepo.com/show/475656/google-color.svg"
-                  className="w-5 h-5"
+                <Image
+                  src={"https://www.svgrepo.com/show/475656/google-color.svg"}
                   alt="google"
+                  className="w-5 h-5"
+                  width={45}
+                  height={45}
                 />
                 Google
               </button>
@@ -257,10 +262,12 @@ export default function SignupPage() {
                 type="button"
                 className="w-full flex items-center justify-center gap-3 py-3 rounded-xl border border-white/10 bg-white/5 text-white font-medium transition-all duration-300 hover:bg-white/10 hover:scale-[1.02] active:scale-95"
               >
-                <img
-                  src="https://www.svgrepo.com/show/512317/github-142.svg"
-                  className="w-5 h-5 invert"
+                <Image
+                  src={"https://www.svgrepo.com/show/512317/github-142.svg"}
                   alt="github"
+                  className="w-5 h-5 invert"
+                  width={45}
+                  height={45}
                 />
                 GitHub
               </button>
