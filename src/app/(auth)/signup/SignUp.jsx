@@ -133,6 +133,7 @@ export default function SignUp() {
         email: registerData.email,
         password: registerData.password,
         image: registerData.image,
+        role: registerData.role,
       });
 
       if (error) {
@@ -218,6 +219,44 @@ export default function SignUp() {
               error={errors.confirmPassword}
               onChange={handleInputChange}
             />
+
+            {/* ACCOUNT TYPE (PREMIUM SEGMENTED CONTROL) */}
+            <div className="space-y-2">
+              <label className="text-sm font-medium text-gray-300">
+                Account Type
+              </label>
+
+              <div className="p-1 mt-1 rounded-xl bg-white/5 border border-white/10 backdrop-blur-md flex">
+                {/* Job Seeker */}
+                <label className="flex-1 cursor-pointer">
+                  <input
+                    type="radio"
+                    name="role"
+                    value="seeker"
+                    defaultChecked
+                    className="peer hidden"
+                  />
+
+                  <div className="text-center py-2 rounded-lg text-sm font-medium text-gray-300 peer-checked:bg-linear-to-r peer-checked:from-blue-600 peer-checked:to-purple-600 peer-checked:text-white transition-all duration-300 hover:text-white">
+                    Job Seeker
+                  </div>
+                </label>
+
+                {/* Recruiter */}
+                <label className="flex-1 cursor-pointer">
+                  <input
+                    type="radio"
+                    name="role"
+                    value="recruiter"
+                    className="peer hidden"
+                  />
+
+                  <div className="text-center py-2 rounded-lg text-sm font-medium text-gray-300 peer-checked:bg-linear-to-r peer-checked:from-purple-600 peer-checked:to-pink-600 peer-checked:text-white transition-all duration-300 hover:text-white">
+                    Recruiter
+                  </div>
+                </label>
+              </div>
+            </div>
 
             {/* BUTTON */}
             <button
