@@ -6,16 +6,19 @@ import {
   Settings,
   BriefcaseBusiness,
   Files,
+  PlusCircle,
 } from "lucide-react";
 import Link from "next/link";
-import React, { useState } from "react";
+import { usePathname } from "next/navigation";
 
 const DashboardSidebar = ({ children }) => {
+  const pathname = usePathname();
+
   const navContent = [
     {
       icon: <LayoutDashboard className="w-6 h-6 mr-2" />,
       name: "Dashboard",
-      href: "/dashboard",
+      href: "/dashboard/recruiter",
     },
     {
       icon: <Building2 className="w-6 h-6 mr-2" />,
@@ -25,7 +28,12 @@ const DashboardSidebar = ({ children }) => {
     {
       icon: <BriefcaseBusiness className="w-6 h-6 mr-2" />,
       name: "Manage Jobs",
-      href: "/jobs",
+      href: "/dashboard/recruiter/jobs",
+    },
+    {
+      icon: <PlusCircle className="w-6 h-6 mr-2" />,
+      name: "Post Jobs",
+      href: "/dashboard/recruiter/jobs/new",
     },
     {
       icon: <Files className="w-6 h-6 mr-2" />,
@@ -38,8 +46,6 @@ const DashboardSidebar = ({ children }) => {
       href: "/settings",
     },
   ];
-
-  const [active, setActive] = useState("/dashboard");
 
   return (
     <div className="drawer lg:drawer-open">
@@ -61,7 +67,7 @@ const DashboardSidebar = ({ children }) => {
               strokeWidth="2"
               fill="none"
               stroke="currentColor"
-              className="my-1.9 inline-block size-4"
+              className="inline-block size-4"
             >
               <path d="M4 4m0 2a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2z" />
               <path d="M9 4v16" />
@@ -69,10 +75,10 @@ const DashboardSidebar = ({ children }) => {
             </svg>
           </label>
 
-          <div className="px-4 text-white">Dashboard</div>
+          <div className="px-4 text-white text-lg font-semibold">Dashboard</div>
         </nav>
 
-        {/* CHILDREN CONTENT (IMPORTANT FIX) */}
+        {/* PAGE CONTENT */}
         <div className="p-4 bg-[#131314] min-h-screen">{children}</div>
       </div>
 
@@ -82,22 +88,28 @@ const DashboardSidebar = ({ children }) => {
 
         <aside className="w-80 min-h-full bg-[#131314] border-r border-white/20">
           <ul className="menu p-4 w-full space-y-1">
-            {navContent.map((item) => (
-              <li key={item.name}>
-                <Link
-                  href={item.href}
-                  onClick={() => setActive(item.href)}
-                  className={`relative rounded-md px-3 py-2 ml-2 transition-all duration-200 hover:bg-white/10 hover:text-white before:content-[''] before:absolute before:right-0 before:top-0 before:h-full before:w-1 before:bg-white before:rounded-l-md before:transition-all before:duration-200 ${
-                    active === item.href
-                      ? "bg-white/10 text-white before:opacity-100"
-                      : "text-white/70 before:opacity-0"
-                  }`}
-                >
-                  {item.icon}
-                  <span className="text-[16px]">{item.name}</span>
-                </Link>
-              </li>
-            ))}
+            {navContent.map((item) => {
+              const isActive =
+                pathname === item.href ||
+                (item.href !== "/dashboard/recruiter" &&
+                  pathname.startsWith(item.href));
+
+              return (
+                <li key={item.name}>
+                  <Link
+                    href={item.href}
+                    className={`relative flex items-center rounded-md px-3 py-3 ml-2 transition-all duration-200 hover:bg-white/10 hover:text-white before:content-[''] before:absolute before:right-0 before:top-0 before:h-full before:w-1 before:bg-white before:rounded-l-md before:transition-all before:duration-200 ${
+                      isActive
+                        ? "bg-white/10 text-white before:opacity-100"
+                        : "text-white/70 before:opacity-0"
+                    }`}
+                  >
+                    {item.icon}
+                    <span className="text-[16px]">{item.name}</span>
+                  </Link>
+                </li>
+              );
+            })}
           </ul>
         </aside>
       </div>

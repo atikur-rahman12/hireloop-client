@@ -3,42 +3,21 @@
 import { useSession } from "@/lib/auth-client";
 import { FileText, Users, Zap, CheckCircle2 } from "lucide-react";
 import StatsGroup from "../StatsGroup";
+import RecruiterDashboardSkeleton from "@/components/Skeleton/RecruiterDashboardSkeleton";
+import RecentApplications from "../RecentApplications";
 
 const RecruiterHomePage = () => {
   const { data: session, isPending } = useSession();
 
   if (isPending) {
     return (
-      <div className="p-10">
-        {/* Welcome Title */}
-        <div className="mb-14">
-          <div className="skeleton h-12 w-95 lg:w-145 rounded-lg" />
-        </div>
-
-        {/* Stats Grid */}
-        <div className="grid grid-cols-2 xl:grid-cols-4 gap-5">
-          {[...Array(4)].map((_, index) => (
-            <div
-              key={index}
-              className="rounded-3xl border border-base-300 bg-base-200/40 p-7 h-47.5"
-            >
-              <div className="flex flex-col h-full">
-                {/* Icon */}
-                <div className="skeleton h-11 w-11 rounded-xl" />
-
-                {/* Push content to bottom */}
-                <div className="mt-auto">
-                  <div className="skeleton h-3 w-28 mb-4" />
-                  <div className="skeleton h-10 w-24" />
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
+      <div>
+        <RecruiterDashboardSkeleton />
       </div>
     );
   }
 
+  // recruiter stats card
   const recruitersStats = [
     {
       title: "Total Job Posts",
@@ -62,6 +41,50 @@ const RecruiterHomePage = () => {
     },
   ];
 
+  const columnsConfig = [
+    { headerName: "Candidate Name", field: "name", isCandidate: true }, // ইমেজসহ দেখাবে
+    { headerName: "Role", field: "role" },
+    { headerName: "Date Applied", field: "date" },
+    { headerName: "Experience", field: "exp" },
+    { headerName: "Status", field: "status", isStatus: true }, // ব্যাজ আকারে দেখাবে
+  ];
+
+  // ২. আপনার ডাটা অবজেক্ট
+  const applicationsData = [
+    {
+      id: 1,
+      name: "Julianne Moore",
+      role: "Senior Product Designer",
+      date: "Oct 24, 2023",
+      exp: "6 years",
+      status: "Interviewing",
+    },
+    {
+      id: 2,
+      name: "Robert Downey",
+      role: "Backend Engineer",
+      date: "Oct 23, 2023",
+      exp: "4 years",
+      status: "New",
+    },
+    {
+      id: 3,
+      name: "Emma Stone",
+      role: "Marketing Lead",
+      date: "Oct 22, 2023",
+      exp: "8 years",
+      status: "Reviewing",
+    },
+    {
+      id: 4,
+      name: "Chris Pratt",
+      role: "Product Manager",
+      date: "Oct 21, 2023",
+      exp: "5 years",
+      status: "Rejected",
+    },
+  ];
+
   const user = session?.user;
   console.log("Session data in RecruiterPage:", session);
 
@@ -71,6 +94,15 @@ const RecruiterHomePage = () => {
         Welcome Back, {user?.name}
       </h2>
       <StatsGroup statsData={recruitersStats} />
+
+      <div>
+        <RecentApplications
+          title="Recent Applications"
+          columns={columnsConfig}
+          data={applicationsData}
+          onViewAll={() => console.log("View all applications clicked")}
+        />
+      </div>
     </div>
   );
 };
