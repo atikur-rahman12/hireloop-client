@@ -6,13 +6,31 @@ import {
   Trash2,
   MapPin,
   Calendar,
-  DollarSign,
   Layers,
+  Plus,
 } from "lucide-react";
+import Link from "next/link";
+import { getLoggedInRecruiterCompany } from "@/lib/api/companies";
 
 const RecruiterJobsPage = async () => {
-  const companyId = "co_12345";
-  const jobs = (await getCompanyJobs(companyId)) || [];
+  const company = await getLoggedInRecruiterCompany();
+
+  const jobs = company ? await getCompanyJobs(company._id) : [];
+
+  const getCurrencySymbol = (currency) => {
+    switch (currency) {
+      case "USD":
+        return "$";
+      case "EUR":
+        return "€";
+      case "GBP":
+        return "£";
+      case "BDT":
+        return "৳";
+      default:
+        return "$";
+    }
+  };
 
   return (
     <div className="p-8 bg-base-200/50 min-h-screen">
@@ -127,13 +145,17 @@ const RecruiterJobsPage = async () => {
 
                         {/* Column 3: Salary Range */}
                         <td className="py-5">
-                          <div className="flex items-center gap-1 text-sm font-semibold text-base-content/90 bg-base-200/50 px-3 py-1.5 rounded-xl w-fit border border-base-200">
-                            <DollarSign size={14} className="text-success" />
+                          <div className="flex items-center gap-2 text-sm font-semibold text-base-content/90 bg-base-200/50 px-3 py-1.5 rounded-xl w-fit border border-base-200">
+                            <span className="text-success text-base font-bold">
+                              {getCurrencySymbol(job.currency)}
+                            </span>
+
                             <span>
                               {Number(job.minSalary).toLocaleString()} -{" "}
                               {Number(job.maxSalary).toLocaleString()}
                             </span>
-                            <span className="text-xs text-base-content/50 font-normal ml-0.5">
+
+                            <span className="text-xs text-base-content/50 font-normal">
                               {job.currency}
                             </span>
                           </div>
@@ -206,6 +228,17 @@ const RecruiterJobsPage = async () => {
             </table>
           </div>
         </div>
+        {/* Floating Add Job Button */}
+        <Link
+          href="/dashboard/recruiter/jobs/new"
+          className="fixed bottom-8 right-8 z-50"
+        >
+          <div className="tooltip tooltip-top" data-tip="Create a Job">
+            <button className="btn btn-primary bg-white text-black btn-circle shadow-xl h-14 w-14 hover:scale-110 transition-all duration-300">
+              <Plus size={35} />
+            </button>
+          </div>
+        </Link>
       </div>
     </div>
   );

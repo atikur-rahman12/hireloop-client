@@ -6,7 +6,6 @@ import {
   Settings,
   BriefcaseBusiness,
   Files,
-  PlusCircle,
 } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -23,17 +22,12 @@ const DashboardSidebar = ({ children }) => {
     {
       icon: <Building2 className="w-6 h-6 mr-2" />,
       name: "My Company",
-      href: "/companies",
+      href: "/dashboard/recruiter/company",
     },
     {
       icon: <BriefcaseBusiness className="w-6 h-6 mr-2" />,
       name: "Manage Jobs",
       href: "/dashboard/recruiter/jobs",
-    },
-    {
-      icon: <PlusCircle className="w-6 h-6 mr-2" />,
-      name: "Post Jobs",
-      href: "/dashboard/recruiter/jobs/new",
     },
     {
       icon: <Files className="w-6 h-6 mr-2" />,
