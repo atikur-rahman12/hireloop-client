@@ -7,15 +7,18 @@ import { Bars, Xmark, Briefcase } from "@gravity-ui/icons";
 import { useSession } from "@/lib/auth-client";
 import UserDropdown from "../UserDropdown";
 import { ArrowRight, LogIn } from "lucide-react";
+import { usePathname } from "next/navigation";
 
 const navLinks = [
   { name: "Browse Jobs", href: "/jobs" },
   { name: "Companies", href: "/companies" },
-  { name: "Pricing", href: "/pricing" },
+  { name: "Pricing", href: "/plans"},
   { name: "Dashboard", href: "/dashboard" },
 ];
 
 export default function Navbar() {
+  const pathname = usePathname();
+
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { data: session, isPending } = useSession();
   const user = session?.user;
@@ -86,17 +89,30 @@ export default function Navbar() {
 
         {/* DESKTOP NAV */}
         <div className="hidden items-center gap-3 rounded-2xl border border-white/10 bg-white/5 px-3 lg:flex">
-          {navLinks.map((link) => (
-            <Link
-              key={link.name}
-              href={link.href}
-              className="group relative px-4 py-4 text-sm text-gray-300 transition-all duration-300 hover:text-white hover:-translate-y-0.5"
-            >
-              <span className="relative z-10">{link.name}</span>
+          {navLinks.map((link) => {
+            const isActive = pathname === link.href;
 
-              <span className="absolute left-1/2 bottom-2 h-0.5 w-0 -translate-x-1/2 rounded-full bg-linear-to-r from-violet-500 to-fuchsia-500 transition-all duration-300 group-hover:w-3/4 shadow-[0_0_12px_rgba(168,85,247,0.7)]" />
-            </Link>
-          ))}
+            return (
+              <Link
+                key={link.name}
+                href={link.href}
+                className={`group relative px-4 py-4 text-sm transition-all duration-300 hover:-translate-y-0.5 ${
+                  isActive ? "text-white" : "text-gray-300 hover:text-white"
+                }`}
+              >
+                <span className="relative z-10">{link.name}</span>
+
+                {/* ACTIVE UNDERLINE */}
+                <span
+                  className={`absolute left-1/2 bottom-2 h-0.5 -translate-x-1/2 rounded-full transition-all duration-300 ${
+                    isActive
+                      ? "w-3/4 bg-gradient-to-r from-violet-500 to-fuchsia-500 shadow-[0_0_12px_rgba(168,85,247,0.7)]"
+                      : "w-0 group-hover:w-3/4 bg-gradient-to-r from-violet-500 to-fuchsia-500"
+                  }`}
+                />
+              </Link>
+            );
+          })}
 
           <div className="mx-2 h-6 w-px bg-white/10" />
 

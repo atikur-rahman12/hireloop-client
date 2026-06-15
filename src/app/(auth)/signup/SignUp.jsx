@@ -3,9 +3,9 @@
 import Link from "next/link";
 import { useState } from "react";
 import { User, Mail, Image as ImageIcon, Lock } from "lucide-react";
-import { signUp } from "@/lib/auth-client";
+import { signOut, signUp } from "@/lib/auth-client";
 import toast from "react-hot-toast";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import Image from "next/image";
 
 const InputField = ({
@@ -53,8 +53,11 @@ const InputField = ({
 
 export default function SignUp() {
   const router = useRouter();
-
+  const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState({});
+
+  const searchParams = useSearchParams();
+  const redirectTo = searchParams.get("redirect") || "/";
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -127,13 +130,18 @@ export default function SignUp() {
 
     setErrors({});
 
+    const plan = registerData.role === "seeker" ? "seeker_free" : "recruiter_free";
+
     try {
+      setLoading(true);
+
       const { data, error } = await signUp.email({
         name: registerData.name,
         email: registerData.email,
         password: registerData.password,
         image: registerData.image,
         role: registerData.role,
+        plan,
       });
 
       if (error) {
@@ -141,11 +149,15 @@ export default function SignUp() {
         return;
       }
 
+      await signOut();
+
       toast.success("Registration successful 🎉");
 
-      router.push("/signin");
+      router.push(`/signin?redirect=${encodeURIComponent(redirectTo)}`);
     } catch (err) {
       toast.error(err.message || "Something went wrong");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -261,11 +273,14 @@ export default function SignUp() {
             {/* BUTTON */}
             <button
               type="submit"
+              disabled={loading}
               className="relative w-full py-3 mt-2 rounded-xl font-semibold text-white bg-linear-to-r from-blue-600 via-purple-600 to-pink-600 transition-all duration-300 hover:scale-[1.03] hover:shadow-[0_0_25px_rgba(99,102,241,0.6)] active:scale-95 overflow-hidden group"
             >
               <span className="absolute inset-0 bg-white/20 -translate-x-full group-hover:translate-x-full transition-transform duration-700"></span>
 
-              <span className="relative z-10">Create Account</span>
+              <span className="relative z-10">
+                {loading ? "Creating Account..." : "Create Account"}
+              </span>
             </button>
 
             {/* OR */}
@@ -316,7 +331,7 @@ export default function SignUp() {
             <div className="text-center text-sm text-gray-400 mt-4">
               Already have an account?{" "}
               <Link
-                href="/signin"
+                href={`/signin?redirect=${redirectTo}`}
                 className="relative text-blue-400 font-medium transition-all duration-300 hover:text-white hover:drop-shadow-[0_0_10px_rgba(59,130,246,0.8)] after:content-[''] after:absolute after:left-0 after:-bottom-0.5 after:w-0 after:h-0.5 after:bg-blue-400 after:transition-all after:duration-300 hover:after:w-full"
               >
                 Sign In

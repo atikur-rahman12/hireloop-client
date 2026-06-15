@@ -6,10 +6,15 @@ import { Mail, Lock, Eye, EyeOff } from "lucide-react";
 import toast from "react-hot-toast";
 import { signIn } from "@/lib/auth-client";
 import Image from "next/image";
+import { useRouter, useSearchParams } from "next/navigation";
 
 const SignIn = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
+  const router = useRouter();
+
+  const searchParams = useSearchParams();
+  const redirectTo = searchParams.get("redirect") || "/";
 
   const handleSignIn = async (e) => {
     e.preventDefault();
@@ -29,15 +34,15 @@ const SignIn = () => {
       const { data, error } = await signIn.email({
         email,
         password,
-        callbackURL: "/",
       });
 
       if (error) {
         toast.error(error.message || "Login failed");
         return;
+      } else {
+        toast.success("Login successful 🎉");
+        router.push(redirectTo);
       }
-
-      toast.success("Login successful 🎉");
     } catch (err) {
       toast.error("Something went wrong!");
     } finally {
@@ -168,7 +173,7 @@ const SignIn = () => {
             <p className="text-center text-sm text-gray-400 mt-4">
               Don’t have an account?{" "}
               <Link
-                href="/signup"
+                href={`/signup?redirect=${redirectTo}`}
                 className="relative text-blue-400 font-medium transition-all duration-300 hover:text-white hover:drop-shadow-[0_0_10px_rgba(59,130,246,0.8)] after:content-[''] after:absolute after:left-0 after:-bottom-0.5 after:w-0 after:h-0.5 after:bg-blue-400 after:transition-all after:duration-300 hover:after:w-full"
               >
                 Sign Up

@@ -96,9 +96,12 @@ const JobDetailsPage = async ({ params }) => {
             </div>
 
             <div className="hidden sm:block">
-              <button className="btn btn-primary btn-wide shadow-lg hover:shadow-primary/30 transition-all duration-300 rounded-xl text-white">
+              <Link
+                href={`/jobs/${id}/apply`}
+                className="btn btn-primary btn-wide shadow-lg hover:shadow-primary/30 transition-all duration-300 rounded-xl text-white"
+              >
                 Apply Now
-              </button>
+              </Link>
             </div>
           </div>
 
@@ -179,7 +182,7 @@ const JobDetailsPage = async ({ params }) => {
                     {currency} {currencyIcon[currency] || ""}
                     {minSalary} - {currencyIcon[currency] || ""}
                     {maxSalary} / Month
-                  </span>
+                  </span>{" "}
                 </div>
 
                 <div>
@@ -244,9 +247,12 @@ const JobDetailsPage = async ({ params }) => {
               )}
 
               <div className="sm:hidden pt-4">
-                <button className="btn btn-primary w-full shadow-lg rounded-xl text-white">
+                <Link
+                  href={`/jobs/${id}/apply`}
+                  className="btn btn-primary w-full shadow-lg rounded-xl text-white"
+                >
                   Apply Now
-                </button>
+                </Link>
               </div>
             </div>
           </div>
